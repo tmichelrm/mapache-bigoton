@@ -1,0 +1,11 @@
+# 1) Copia este archivo y ponle el nombre:  application-local.properties
+# 2) Cambia la contraseña por la de TU MySQL (la que usas en MySQL Workbench)
+# Este archivo NO se sube a GitHub (está en .gitignore).
+
+spring.datasource.username=root
+spring.datasource.password=
+
+# Opcional: usuario con el que se entra al sistema (solo se crea la primera vez)
+# app.admin.usuario=mariana
+# app.admin.clave=Mapache2026
+# app.admin.nombre=Mariana López
