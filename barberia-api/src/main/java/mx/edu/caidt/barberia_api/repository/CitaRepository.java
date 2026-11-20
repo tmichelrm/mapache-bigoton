@@ -10,11 +10,6 @@ import java.time.LocalDateTime;
 
 public interface CitaRepository extends JpaRepository<Cita, Long> {
 
-    /**
-     * Cuenta las citas de ese barbero que se cruzan con el rango [inicio, fin),
-     * sin contar las canceladas ni la propia cita que se está editando.
-     * Dos rangos se cruzan cuando: inicioA < finB  y  finA > inicioB.
-     */
     @Query("select count(c) from Cita c "
             + "where c.idBarbero = :idBarbero "
             + "and c.estado <> :cancelada "
