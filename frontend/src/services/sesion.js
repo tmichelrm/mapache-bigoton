@@ -1,11 +1,9 @@
-// Guarda y lee la sesión (token y nombre) en el navegador.
 const CLAVE = 'sesionBarberia'
 
 export function guardarSesion(sesion) {
   try {
     localStorage.setItem(CLAVE, JSON.stringify(sesion))
   } catch {
-    // si el navegador no permite guardar, la sesión no se conserva
   }
 }
 
@@ -21,6 +19,5 @@ export function cerrarSesion() {
   try {
     localStorage.removeItem(CLAVE)
   } catch {
-    // nada que hacer
   }
 }

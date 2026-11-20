@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-/** Quien inicia sesión en el sistema. La clave se guarda encriptada (BCrypt). */
 @Entity
 @Table(name = "usuario")
 public class Usuario {

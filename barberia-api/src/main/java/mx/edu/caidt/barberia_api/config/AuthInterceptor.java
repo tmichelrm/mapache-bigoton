@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-/** Revisa el token antes de cada petición a /api/** (excepto el login). */
+
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
@@ -17,7 +17,6 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest peticion, HttpServletResponse respuesta, Object handler) {
-        // Antes de cada petición, el navegador manda una pregunta previa (OPTIONS): se deja pasar.
         if ("OPTIONS".equalsIgnoreCase(peticion.getMethod())) {
             return true;
         }

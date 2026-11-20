@@ -4,7 +4,7 @@ import Modal from '../components/Modal'
 import { serviciosApi } from '../services/api'
 import { useRecurso } from '../services/useRecurso'
 
-const vacio = { nombre: '', precio: '', duracionMinutos: '' }
+const vacio = { nombre: '', descripcion: '', precio: '', duracionMinutos: '' }
 
 export default function Servicios() {
   const { datos: servicios, cargando, error, recargar } = useRecurso(serviciosApi)
@@ -18,6 +18,7 @@ export default function Servicios() {
     evento.preventDefault()
     const servicio = {
       ...formulario,
+      descripcion: formulario.descripcion || null,
       precio: Number(formulario.precio),
       duracionMinutos: Number(formulario.duracionMinutos),
     }
@@ -79,6 +80,7 @@ export default function Servicios() {
               </div>
             </div>
             <h2>{s.nombre}</h2>
+            {s.descripcion && <p className="descripcion">{s.descripcion}</p>}
             <div className="servicio-pie">
               <span className="precio">${Number(s.precio).toLocaleString('es-MX')}</span>
               <span className="duracion">{s.duracionMinutos} min</span>
@@ -93,6 +95,10 @@ export default function Servicios() {
             <label htmlFor="nombre">Nombre</label>
             <input id="nombre" required maxLength={50} value={formulario.nombre}
               onChange={(e) => cambiar('nombre', e.target.value)} />
+
+            <label htmlFor="descripcion">Descripción</label>
+            <input id="descripcion" maxLength={150} value={formulario.descripcion ?? ''}
+              onChange={(e) => cambiar('descripcion', e.target.value)} />
 
             <label htmlFor="precio">Precio (MXN)</label>
             <input id="precio" type="number" min="0" step="0.01" required value={formulario.precio}

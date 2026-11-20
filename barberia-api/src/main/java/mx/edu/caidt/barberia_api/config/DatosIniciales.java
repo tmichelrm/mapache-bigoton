@@ -10,7 +10,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-/** Al arrancar, si no hay ningún usuario, crea el administrador para poder iniciar sesión. */
 @Component
 public class DatosIniciales implements CommandLineRunner {
 

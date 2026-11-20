@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Calendar, Scissors, Users, Sparkles, Settings, ChevronRight } from 'lucide-react'
+import { Calendar, Scissors, Users, Sparkles, Settings, ChevronRight, MapPin } from 'lucide-react'
 import { citasApi, clientesApi, barberosApi, serviciosApi, FECHA_INICIAL } from '../services/api'
 import { useRecurso } from '../services/useRecurso'
 import { obtenerSesion } from '../services/sesion'
@@ -16,6 +16,7 @@ function saludo() {
 
 const accesos = [
   { ruta: '/citas', texto: 'Citas', nota: 'Organizar agenda', icono: Calendar },
+  { ruta: '/sucursales', texto: 'Sucursales', nota: 'Direcciones', icono: MapPin },
   { ruta: '/barberos', texto: 'Barberos', nota: 'Gestionar equipo', icono: Scissors },
   { ruta: '/clientes', texto: 'Clientes', nota: 'Consultar historial', icono: Users },
   { ruta: '/servicios', texto: 'Servicios', nota: 'Editar catálogo', icono: Sparkles },
@@ -34,7 +35,6 @@ export default function Dashboard() {
   const barberoPorId = porId(barberos, 'idBarbero')
   const servicioPorId = porId(servicios, 'idServicio')
 
-  // Citas del día (sin contar las canceladas), ordenadas por hora
   const citasHoy = citas
     .filter((c) => diaDe(c.inicio) === FECHA_INICIAL && c.estado !== 'CANCELADA')
     .sort((a, b) => a.inicio.localeCompare(b.inicio))

@@ -27,9 +27,11 @@ public class Barbero {
     @Column(name = "especialidad")
     private String especialidad;
 
-    // En MySQL es BIT(1): viaja como true / false en el JSON
     @Column(name = "activo")
     private Boolean activo = Boolean.TRUE;
+
+    @Column(name = "id_Sucursal")
+    private Long idSucursal;
 
     public Long getIdBarbero() { return idBarbero; }
     public void setIdBarbero(Long idBarbero) { this.idBarbero = idBarbero; }
@@ -42,4 +44,7 @@ public class Barbero {
 
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
+
+    public Long getIdSucursal() { return idSucursal; }
+    public void setIdSucursal(Long idSucursal) { this.idSucursal = idSucursal; }
 }

@@ -10,7 +10,6 @@ export default function Login() {
   const [error, setError] = useState('')
   const [cargando, setCargando] = useState(false)
 
-  // Si ya hay sesión, no tiene caso mostrar el Login
   if (obtenerSesion()) return <Navigate to="/panel" replace />
 
   async function iniciarSesion(evento) {

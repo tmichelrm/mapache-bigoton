@@ -12,7 +12,6 @@ export default function Calendario({ seleccionada, onSeleccionar, diasConCitas, 
   const [anioInicial, mesInicial] = seleccionada.split('-').map(Number)
   const [vista, setVista] = useState({ anio: anioInicial, mes: mesInicial - 1 })
 
-  // La semana empieza en lunes (como en el prototipo)
   const vacios = (new Date(vista.anio, vista.mes, 1).getDay() + 6) % 7
   const diasDelMes = new Date(vista.anio, vista.mes + 1, 0).getDate()
 

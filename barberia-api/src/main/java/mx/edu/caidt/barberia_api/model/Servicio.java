@@ -28,6 +28,10 @@ public class Servicio {
     @Column(name = "nombre")
     private String nombre;
 
+    @Size(max = 150, message = "La descripción admite hasta 150 caracteres.")
+    @Column(name = "descripcion")
+    private String descripcion;
+
     @NotNull(message = "El precio es obligatorio.")
     @DecimalMin(value = "0", message = "El precio no puede ser negativo.")
     @Column(name = "precio")
@@ -49,4 +53,7 @@ public class Servicio {
 
     public Integer getDuracionMinutos() { return duracionMinutos; }
     public void setDuracionMinutos(Integer duracionMinutos) { this.duracionMinutos = duracionMinutos; }
+
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 }

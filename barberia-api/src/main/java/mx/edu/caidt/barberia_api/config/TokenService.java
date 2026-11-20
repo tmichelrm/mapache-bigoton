@@ -7,10 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Guarda en memoria las sesiones activas. Cada token dura 8 horas.
- * Si el backend se reinicia, hay que iniciar sesión otra vez.
- */
+
 @Service
 public class TokenService {
 
@@ -45,7 +42,6 @@ public class TokenService {
         }
     }
 
-    /** De "Bearer abc123" devuelve "abc123" (o null si no viene así). */
     public static String extraer(String cabecera) {
         if (cabecera != null && cabecera.startsWith("Bearer ")) {
             return cabecera.substring(7);

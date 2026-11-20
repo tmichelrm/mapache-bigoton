@@ -12,10 +12,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-/**
- * La cita guarda solo los ids del cliente, barbero y servicio (igual que la tabla).
- * El frontend busca los nombres con las otras tres rutas.
- */
 @Entity
 @Table(name = "cita")
 public class Cita {
@@ -41,7 +37,6 @@ public class Cita {
     @Column(name = "inicio")
     private LocalDateTime inicio;
 
-    // El backend lo recalcula: inicio + duración del servicio
     @Column(name = "fin")
     private LocalDateTime fin;
 

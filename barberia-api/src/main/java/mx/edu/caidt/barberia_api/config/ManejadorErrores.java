@@ -10,11 +10,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Map;
 
-/** Convierte los errores en respuestas JSON claras: { "mensaje": "..." } */
 @RestControllerAdvice
 public class ManejadorErrores {
 
-    /** Teléfono repetido, o borrar algo que tiene citas asociadas. */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, String>> integridad(DataIntegrityViolationException ex) {
         String detalle = String.valueOf(ex.getMostSpecificCause().getMessage());
@@ -29,7 +27,6 @@ public class ManejadorErrores {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("mensaje", mensaje));
     }
 
-    /** Datos que no cumplen las validaciones (@NotBlank, @Size, ...). */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> validacion(MethodArgumentNotValidException ex) {
         String mensaje = ex.getBindingResult().getFieldErrors().stream()
@@ -39,7 +36,6 @@ public class ManejadorErrores {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("mensaje", mensaje));
     }
 
-    /** 404, 400 y 409 que lanzan los controladores. */
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Map<String, String>> estado(ResponseStatusException ex) {
         String mensaje = ex.getReason() != null ? ex.getReason() : "Error.";

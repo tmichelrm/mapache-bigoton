@@ -21,7 +21,6 @@ public class WebConfig implements WebMvcConfigurer {
         this.origenesPermitidos = origenesPermitidos;
     }
 
-    /** CORS: permite que el frontend (otro puerto) le pida datos a la API. */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
@@ -30,7 +29,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*");
     }
 
-    /** Todas las rutas /api/** piden token, menos el login. */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)

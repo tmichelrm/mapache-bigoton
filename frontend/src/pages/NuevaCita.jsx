@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ArrowLeft, Check, Scissors } from 'lucide-react'
-import { citasApi, clientesApi, barberosApi, serviciosApi, FECHA_INICIAL } from '../services/api'
+import { citasApi, clientesApi, barberosApi, serviciosApi, sucursalesApi, FECHA_INICIAL } from '../services/api'
 import { useRecurso } from '../services/useRecurso'
 import { diaDe, horaDe, sumarMinutos, fechaCorta } from '../data/utilidades'
 
@@ -13,13 +13,14 @@ const HORAS = Array.from({ length: 23 }, (_, i) => {
 })
 
 export default function NuevaCita() {
-  const { id } = useParams() // existe solo al editar
+  const { id } = useParams() 
   const navegar = useNavigate()
 
   const { datos: clientes } = useRecurso(clientesApi)
   const { datos: barberos } = useRecurso(barberosApi)
   const { datos: servicios } = useRecurso(serviciosApi)
   const { datos: citas } = useRecurso(citasApi)
+  const { datos: sucursales } = useRecurso(sucursalesApi)
 
   const [form, setForm] = useState({
     fecha: FECHA_INICIAL,
@@ -30,7 +31,6 @@ export default function NuevaCita() {
   })
   const [estado, setEstado] = useState('PROGRAMADA')
 
-  // Al editar: cargar la cita existente en el formulario
   useEffect(() => {
     if (!id) return
     citasApi.listar().then((lista) => {
@@ -51,12 +51,10 @@ export default function NuevaCita() {
     setForm({ ...form, [campo]: valor })
   }
 
-  // ----- Cálculos a partir del formulario -----
   const servicio = servicios.find((s) => String(s.idServicio) === form.idServicio)
   const inicio = `${form.fecha}T${form.hora}:00`
   const fin = servicio ? sumarMinutos(inicio, servicio.duracionMinutos) : null
 
-  // ¿El barbero ya tiene otra cita que se empalme con esta?
   const hayChoque =
     fin &&
     form.idBarbero &&
@@ -69,6 +67,8 @@ export default function NuevaCita() {
         c.fin.slice(0, 19) > inicio
     )
 
+  const sucursalDe = (b) => sucursales.find((s) => s.idSucursal === b.idSucursal)
+  const barberoElegido = barberos.find((b) => String(b.idBarbero) === form.idBarbero)
   const horas = HORAS.includes(form.hora) ? HORAS : [...HORAS, form.hora].sort()
   const barberosDisponibles = barberos.filter(
     (b) => b.activo || String(b.idBarbero) === form.idBarbero
@@ -136,7 +136,9 @@ export default function NuevaCita() {
             onChange={(e) => cambiar('idBarbero', e.target.value)}>
             <option value="">Selecciona un barbero</option>
             {barberosDisponibles.map((b) => (
-              <option key={b.idBarbero} value={b.idBarbero}>{b.nombre}</option>
+              <option key={b.idBarbero} value={b.idBarbero}>
+                {b.nombre}{sucursalDe(b) ? ` · ${sucursalDe(b).nombre}` : ''}
+              </option>
             ))}
           </select>
 
@@ -186,6 +188,10 @@ export default function NuevaCita() {
           <div className="resumen-fila">
             <span>Fecha y hora</span>
             <span>{form.fecha ? `${fechaCorta(form.fecha)} · ${form.hora}` : '—'}</span>
+          </div>
+          <div className="resumen-fila">
+            <span>Sucursal</span>
+            <span>{barberoElegido && sucursalDe(barberoElegido) ? sucursalDe(barberoElegido).nombre : '—'}</span>
           </div>
           <div className="resumen-fila">
             <span>Duración</span>

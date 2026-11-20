@@ -17,9 +17,9 @@ export default function Citas() {
   const { datos: servicios } = useRecurso(serviciosApi)
 
   const [fecha, setFecha] = useState(FECHA_INICIAL)
-  const [vista, setVista] = useState('calendario') // 'calendario' | 'lista'
+  const [vista, setVista] = useState('calendario') 
   const [busqueda, setBusqueda] = useState('')
-  const [idBarbero, setIdBarbero] = useState('') // '' = todos
+  const [idBarbero, setIdBarbero] = useState('') 
 
   const clientePorId = porId(clientes, 'idCliente')
   const barberoPorId = porId(barberos, 'idBarbero')

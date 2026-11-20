@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Users, UserCheck, Pencil, Trash2, Plus } from 'lucide-react'
 import Modal from '../components/Modal'
-import { barberosApi } from '../services/api'
+import { barberosApi, sucursalesApi } from '../services/api'
 import { useRecurso } from '../services/useRecurso'
 
-const vacio = { nombre: '', especialidad: '', activo: true }
+const vacio = { nombre: '', especialidad: '', activo: true, idSucursal: '' }
 
 export default function Barberos() {
   const { datos: barberos, cargando, error, recargar } = useRecurso(barberosApi)
+  const { datos: sucursales } = useRecurso(sucursalesApi)
   const [formulario, setFormulario] = useState(null)
+  const nombreSucursal = (id) => sucursales.find((s) => s.idSucursal === id)?.nombre ?? 'Sin sucursal'
 
   const activos = barberos.filter((b) => b.activo).length
 
@@ -18,11 +20,12 @@ export default function Barberos() {
 
   async function guardar(evento) {
     evento.preventDefault()
+    const barbero = { ...formulario, idSucursal: formulario.idSucursal ? Number(formulario.idSucursal) : null }
     try {
-      if (formulario.idBarbero) {
-        await barberosApi.actualizar(formulario.idBarbero, formulario)
+      if (barbero.idBarbero) {
+        await barberosApi.actualizar(barbero.idBarbero, barbero)
       } else {
-        await barberosApi.crear(formulario)
+        await barberosApi.crear(barbero)
       }
       setFormulario(null)
       recargar()
@@ -78,6 +81,7 @@ export default function Barberos() {
           <thead>
             <tr>
               <th>Barbero</th>
+              <th>Sucursal</th>
               <th>Estado</th>
               <th className="derecha">Acciones</th>
             </tr>
@@ -94,6 +98,7 @@ export default function Barberos() {
                     </div>
                   </div>
                 </td>
+                <td>{nombreSucursal(b.idSucursal)}</td>
                 <td>
                   <span className={`etiqueta ${b.activo ? 'activo' : 'inactivo'}`}>
                     {b.activo ? 'Activo' : 'Inactivo'}
@@ -101,7 +106,7 @@ export default function Barberos() {
                 </td>
                 <td className="derecha">
                   <div className="acciones">
-                    <button className="icono-boton editar" onClick={() => setFormulario({ ...b })} title="Editar">
+                    <button className="icono-boton editar" onClick={() => setFormulario({ ...b, idSucursal: b.idSucursal ?? '' })} title="Editar">
                       <Pencil size={14} />
                     </button>
                     <button className="icono-boton borrar" onClick={() => eliminar(b)} title="Eliminar">
@@ -125,6 +130,15 @@ export default function Barberos() {
             <label htmlFor="especialidad">Especialidad</label>
             <input id="especialidad" maxLength={30} value={formulario.especialidad ?? ''}
               onChange={(e) => cambiar('especialidad', e.target.value)} />
+
+            <label htmlFor="sucursal">Sucursal</label>
+            <select id="sucursal" required value={formulario.idSucursal ?? ''}
+              onChange={(e) => cambiar('idSucursal', e.target.value)}>
+              <option value="">Selecciona una sucursal</option>
+              {sucursales.map((s) => (
+                <option key={s.idSucursal} value={s.idSucursal}>{s.nombre}</option>
+              ))}
+            </select>
 
             <label className="casilla">
               <input type="checkbox" checked={formulario.activo}

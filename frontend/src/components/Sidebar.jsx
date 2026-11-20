@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Calendar, Scissors, Users, Sparkles, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, Calendar, Scissors, Users, Sparkles, Settings, LogOut, MapPin } from 'lucide-react'
 import { obtenerSesion, cerrarSesion } from '../services/sesion'
 import { cerrarSesionApi } from '../services/api'
 
 const opciones = [
   { ruta: '/panel', texto: 'Panel principal', icono: LayoutDashboard },
   { ruta: '/citas', texto: 'Citas', icono: Calendar },
+  { ruta: '/sucursales', texto: 'Sucursales', icono: MapPin },
   { ruta: '/barberos', texto: 'Barberos', icono: Scissors },
   { ruta: '/clientes', texto: 'Clientes', icono: Users },
   { ruta: '/servicios', texto: 'Servicios', icono: Sparkles },

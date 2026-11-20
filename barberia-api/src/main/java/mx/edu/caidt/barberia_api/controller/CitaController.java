@@ -77,7 +77,6 @@ public class CitaController {
         citas.deleteById(id);
     }
 
-    /** Reglas comunes de crear y editar. idExcluir = la cita que se edita (-1 si es nueva). */
     private Cita guardar(Cita cita, Long idExcluir) {
         if (!clientes.existsById(cita.getIdCliente())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El cliente no existe.");
@@ -92,7 +91,6 @@ public class CitaController {
             cita.setEstado(EstadoCita.PROGRAMADA);
         }
 
-        // El fin siempre se calcula: inicio + duración del servicio
         cita.setFin(cita.getInicio().plusMinutes(servicio.getDuracionMinutos()));
 
         if (cita.getEstado() != EstadoCita.CANCELADA) {

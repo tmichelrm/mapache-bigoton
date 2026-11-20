@@ -1,10 +1,11 @@
 import * as datos from '../data/datos'
 import { obtenerSesion, cerrarSesion } from './sesion'
 
+
 const USAR_API = true
 const BASE_URL = 'http://localhost:8080/api'
 
-// Usuario de ejemplo para el modo demo (el mismo que crea el backend)
+
 const USUARIO_DEMO = {
   usuario: 'mariana',
   clave: 'Mapache2026',
@@ -12,7 +13,7 @@ const USUARIO_DEMO = {
   rol: 'Administradora',
 }
 
-// Petición genérica al backend (manda el token si hay sesión)
+
 async function pedir(ruta, opciones = {}) {
   const sesion = obtenerSesion()
   const headers = { 'Content-Type': 'application/json' }
@@ -20,7 +21,6 @@ async function pedir(ruta, opciones = {}) {
 
   const respuesta = await fetch(`${BASE_URL}${ruta}`, { ...opciones, headers })
 
-  // Token vencido o inválido: se cierra la sesión y se vuelve al Login
   if (respuesta.status === 401 && ruta !== '/login') {
     cerrarSesion()
     window.location.href = '/login'
@@ -30,7 +30,6 @@ async function pedir(ruta, opciones = {}) {
   return respuesta.status === 204 ? null : respuesta.json()
 }
 
-// ---------- Sesión ----------
 export async function iniciarSesionApi(usuario, clave) {
   if (USAR_API) {
     return pedir('/login', { method: 'POST', body: JSON.stringify({ usuario, clave }) })
@@ -50,16 +49,14 @@ export async function cerrarSesionApi() {
   }
 }
 
-// ---------- Datos ----------
-// Copias en memoria para el modo demo (se pierden al recargar la página)
 const demo = {
+  sucursales: [...datos.sucursales],
   servicios: [...datos.servicios],
   barberos: [...datos.barberos],
   clientes: [...datos.clientes],
   citas: [...datos.citas],
 }
 
-// Crea las 4 operaciones (listar, crear, actualizar, eliminar) para un recurso
 function crearRecurso(nombre, campoId) {
   return {
     async listar() {
@@ -88,6 +85,7 @@ function crearRecurso(nombre, campoId) {
   }
 }
 
+export const sucursalesApi = crearRecurso('sucursales', 'idSucursal')
 export const serviciosApi = crearRecurso('servicios', 'idServicio')
 export const barberosApi = crearRecurso('barberos', 'idBarbero')
 export const clientesApi = crearRecurso('clientes', 'idCliente')
@@ -98,5 +96,4 @@ function hoyISO() {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
-// Día con el que abren el Panel, Citas y Nueva cita
 export const FECHA_INICIAL = hoyISO()

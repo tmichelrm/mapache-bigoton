@@ -1,7 +1,3 @@
-// Datos de ejemplo con la MISMA forma que la base de datos BarberiaDB.
-// Solo se usan mientras USAR_API = false en services/api.js.
-// Las fechas son relativas a HOY, para que el Panel y las Citas siempre muestren algo.
-
 const pad = (n) => String(n).padStart(2, '0')
 
 function fechaISO(desplazamientoDias) {
@@ -22,17 +18,22 @@ export const clientes = [
   { idCliente: 5, nombre: 'Julián Herrera', telefono: '55 8031 4490', email: null },
 ]
 
+export const sucursales = [
+  { idSucursal: 1, nombre: 'Sucursal Centro', direccion: 'Av. Juárez 120, Col. Centro, Ciudad de México' },
+  { idSucursal: 2, nombre: 'Sucursal Norte', direccion: 'Calz. Vallejo 845, Col. Industrial Vallejo, Ciudad de México' },
+]
+
 export const barberos = [
-  { idBarbero: 1, nombre: 'Diego Morales', especialidad: 'Clásicos y barba', activo: true },
-  { idBarbero: 2, nombre: 'Mateo Vargas', especialidad: 'Cortes modernos', activo: true },
-  { idBarbero: 3, nombre: 'Bruno Castillo', especialidad: 'Afeitado tradicional', activo: true },
+  { idBarbero: 1, nombre: 'Diego Morales', especialidad: 'Clásicos y barba', activo: true, idSucursal: 1 },
+  { idBarbero: 2, nombre: 'Mateo Vargas', especialidad: 'Cortes modernos', activo: true, idSucursal: 1 },
+  { idBarbero: 3, nombre: 'Bruno Castillo', especialidad: 'Afeitado tradicional', activo: true, idSucursal: 2 },
 ]
 
 export const servicios = [
-  { idServicio: 1, nombre: 'Corte', precio: 260, duracionMinutos: 45 },
-  { idServicio: 2, nombre: 'Barba', precio: 190, duracionMinutos: 30 },
-  { idServicio: 3, nombre: 'Corte + Barba', precio: 420, duracionMinutos: 75 },
-  { idServicio: 4, nombre: 'Afeitado clásico', precio: 240, duracionMinutos: 40 },
+  { idServicio: 1, nombre: 'Corte', descripcion: 'Corte de cabello con tijera o máquina, lavado y peinado.', precio: 260, duracionMinutos: 45 },
+  { idServicio: 2, nombre: 'Barba', descripcion: 'Perfilado y arreglo de barba con toalla caliente.', precio: 190, duracionMinutos: 30 },
+  { idServicio: 3, nombre: 'Corte + Barba', descripcion: 'Corte de cabello más arreglo de barba.', precio: 420, duracionMinutos: 75 },
+  { idServicio: 4, nombre: 'Afeitado clásico', descripcion: 'Afeitado tradicional con navaja y toalla caliente.', precio: 240, duracionMinutos: 40 },
 ]
 
 export const citas = [
