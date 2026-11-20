@@ -1,12 +1,3 @@
--- =====================================================================
---  01_base_de_datos.sql  ·  Estructura de BarberiaDB
---  Ábrelo en MySQL Workbench y ejecútalo completo (rayo ⚡ o Ctrl+Shift+Enter).
---
---  Es SEGURO ejecutarlo aunque ya hayas creado las tablas antes:
---  usa IF NOT EXISTS, así que no borra ni duplica nada.
---  Lo único nuevo respecto a tu script es la tabla `usuario` (para el login).
--- =====================================================================
-
 CREATE DATABASE IF NOT EXISTS BarberiaDB CHARACTER SET utf8mb4;
 
 USE BarberiaDB;
