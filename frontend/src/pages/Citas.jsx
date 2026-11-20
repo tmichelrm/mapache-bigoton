@@ -6,7 +6,6 @@ import { citasApi, clientesApi, barberosApi, serviciosApi, FECHA_INICIAL } from 
 import { useRecurso } from '../services/useRecurso'
 import { diaDe, horaDe, estados, fechaLarga } from '../data/utilidades'
 
-// Convierte [{idCliente: 1, ...}, ...] en { 1: {...}, ... } para buscar rápido
 const porId = (lista, campo) => Object.fromEntries(lista.map((x) => [x[campo], x]))
 
 export default function Citas() {
