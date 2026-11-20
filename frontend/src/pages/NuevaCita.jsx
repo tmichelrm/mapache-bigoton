@@ -5,7 +5,6 @@ import { citasApi, clientesApi, barberosApi, serviciosApi, sucursalesApi, FECHA_
 import { useRecurso } from '../services/useRecurso'
 import { diaDe, horaDe, sumarMinutos, fechaCorta } from '../data/utilidades'
 
-// Horas disponibles: de 09:00 a 20:00, cada 30 minutos
 const HORAS = Array.from({ length: 23 }, (_, i) => {
   const hora = 9 + Math.floor(i / 2)
   const minutos = i % 2 ? '30' : '00'
