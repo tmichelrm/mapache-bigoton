@@ -50,9 +50,6 @@ CREATE TABLE IF NOT EXISTS cita
     INDEX idx_cita_cliente (id_Cliente)
 );
 
--- NUEVA: quien inicia sesión en el sistema.
--- No se inserta ningún usuario aquí: el backend crea el primero al arrancar
--- (con la contraseña ya encriptada).
 CREATE TABLE IF NOT EXISTS usuario
 (
     id_Usuario BIGINT       NOT NULL AUTO_INCREMENT,
@@ -63,6 +60,4 @@ CREATE TABLE IF NOT EXISTS usuario
     PRIMARY KEY (id_Usuario),
     UNIQUE KEY uq_usuario_usuario (usuario)
 );
-
--- Comprobación: debe listar 5 tablas
 SHOW TABLES;
