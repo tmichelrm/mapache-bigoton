@@ -3,7 +3,6 @@ export const horaDe = (fechaHora) => fechaHora.slice(11, 16)
 
 export const diaDe = (fechaHora) => fechaHora.slice(0, 10)
 
-// Textos y clases CSS para cada estado de la base de datos
 export const estados = {
   PROGRAMADA: { texto: 'Programada', clase: 'programada' },
   COMPLETADA: { texto: 'Completada', clase: 'completada' },
